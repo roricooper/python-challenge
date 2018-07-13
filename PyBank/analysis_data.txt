@@ -1,0 +1,20 @@
+
+Rori Cooper - Unit 3 Assignment
+
+
+
+Financial Analysis
+
+-----------------------------------------------
+
+Total Number of Months: 41 months
+
+Total Revenue: $18971412
+
+Average Change: $462717.3658536585
+
+Greatest Increase in Revenue: Feb-16 $1837235
+
+Greatest Decrease in Revenue: Jan-16 $-1756602
+
+------------------------------------------------
