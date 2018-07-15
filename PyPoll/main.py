@@ -2,7 +2,7 @@
 # dependencies
 import os
 import csv
-import pandas as pd
+#import pandas as pd
 
 #files to load and output
 file_to_load = os.path.join("..", "PyPoll","election_data.csv")
@@ -10,94 +10,87 @@ file_to_save = os.path.join("..", "PyPoll", "election_results.txt")
 #print(file_to_load)
 #print(file_to_save)
 
-df = pd.read_csv(file_to_load)
+#df = pd.read_csv(file_to_load)
 #print(df)
 
-df.columns = ["Voter ID", "County", "Candidate"]
+#df.columns = ["Voter ID", "County", "Candidate"]
 #print(df.columns)
 
-df.shape
+#df.shape
 #print(df.shape)
 
-df.head()
-#print ("Rori Cooper - Unit 3 Assignment")
-#print ("")
-title = str("Outcome of PyPoll Election")
+#df.head()
 
-print(f"{title}")
-print("--------------------------------------")
-
-#sum of rows before loop starts
-GrandTotalVotes = len(df)
-print(GrandTotalVotes)
+#myformatting
+me = str ("Rori Cooper - Unit 3 Assignment")
+title =(
+    f"\n{me}\n"
+    f"\n-------------------------------------\n")
 
 #counters for loop
-total_votes = 0
-candidate_options = []
-candidate_votes = {}
+votes_count = 0
+candidate_options = {}
+candidate_votes_percent = {}
 winning_candidate = ""
 winning_count = 0
 
-#loop
+#read and loop through poll data
 with open("election_data.csv") as election_data:
     reader = csv.reader(election_data)
     next(reader)
-    #print(header)
+
+    #obtain grand total and candidate vote counts
     for row in reader:
         #print(row)
-        candidate_votes
-        total_votes= total_votes + 1
-        candidate_name = row [2]
+        votes_count +=1
+        if row[2] in candidate_options.keys():
+            candidate_options[row[2]]+=1
+        else:
+            candidate_options[row[2]]= 1
 
-        if candidate_name not in candidate_options:
-            candidate_options.append(candidate_name)
-            #print(candidate_options)
-            candidate_votes[candidate_name] = 0
-            #print(candidate_votes)
-        candidate_votes[candidate_name] = candidate_votes[candidate_name] + 1
-
-#print(candidate_votes)
-for candidate in candidate_votes:
-        #print('----------------------------------------------------')
-        #print(total_votes)
-        #print(candidate)
-        #print(candidate_votes.get(candidate))
-        votes = (candidate_votes.get(candidate))
-        vote_percentage = float(votes)/float(total_votes)*100
-
-        if (votes > winning_count):
-            winning_count = votes
-            winning_candidate = candidate
-
-        voter_output = f"{candidate}: {vote_percentage: .3f}% ({votes})\n"
-        print(voter_output, end="")
-        finalsummary = f"{voter_output}\n"
-        #print(finalsummary)
-
-candidate_votes.keys()
-election_results = (
-        "f\n\Election Results\n"
-        "f\n-----------------------\n")
-election_results
-electionR = f"Election Results: {total_votes}"
-#print(electionR)
+#obtain percentages
+for key, value in candidate_options.items():
+    candidate_votes_percent[key] = round((value/votes_count) * 100, 2)
 
 
+#obtain winner
+for key in candidate_options.keys():
+    if candidate_options[key]> winning_count:
+        winning_candidate = key
+        winning_count = candidate_options[key]
 
-#txt_file.write(file_to_save)
+        #hash-out later
+        #print(votes_count)
+        #print(candidate_options)
+        #print(candidate_votes_percent)
+        #print(winning_candidate)
+        #print(winning_count)
 
-winning_candidate_summary = (
-    f"\n-------------------------------\n"
-    f"\nGrand Total Votes: {GrandTotalVotes}\n"
-    f"\n-------------------------------\n"
-    f"\n{finalsummary}\n"
-    f"\n-------------------------------\n"
-    f"\nWinner: {winning_candidate}\n"
-    f"\n-------------------------------\n")
-print(winning_candidate_summary)
+#final summary print - terminal
+print(f"{title}")
+print("Outcome of PyPoll Election")
+print("-------------------------------------")
+print("Grand Total Votes: " + str(votes_count))
+print("-------------------------------------")
+for key, value in candidate_options.items():
+    print(key + ": " + str(candidate_votes_percent[key]) + "% (" + str(value) + ")")
+print("-------------------------------------")
+print("Winner: " + winning_candidate)
+print("-------------------------------------")
 
+# open txt file
+file_to_save = open("election_results.txt", "w")
 
+# write to txt file
+file_to_save.write("Rori Cooper - Unit 3 Assignment\n")
+file_to_save.write("-------------------------------------\n")
+file_to_save.write("Outcome of PyPoll Election\n")
+file_to_save.write("-------------------------------------\n")
+file_to_save.write("Grand Total Votes: " + str(votes_count) + "\n")
+file_to_save.write("-------------------------------------\n")
+for key, value in candidate_options.items():
+    file_to_save.write(key + ": " + str(candidate_votes_percent[key]) + "% (" + str(value) + ") \n")
+file_to_save.write("-------------------------------------\n")
+file_to_save.write("Winner: " + winning_candidate + "\n")
+file_to_save.write("-------------------------------------\n")
 
-
-with open(file_to_save, "w") as txt_file:
-    txt_file.write(winning_candidate_summary)
