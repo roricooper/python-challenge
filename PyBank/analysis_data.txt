@@ -3,7 +3,7 @@ Rori Cooper - Unit 3 Assignment
 
 
 
-Financial Analysis
+Financial Analysis of PyBank
 
 -----------------------------------------------
 
@@ -11,7 +11,7 @@ Total Number of Months: 41 months
 
 Total Revenue: $18971412
 
-Average Change: $462717.3658536585
+Average Change: $462717.37
 
 Greatest Increase in Revenue: Feb-16 $1837235
 
